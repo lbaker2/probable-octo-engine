@@ -10,9 +10,9 @@ script:
 
 after_success:
   - docker build -t lbakerjs/probable-octo-engine-client -f ./client/Dockerfile.dev ./client
-  - docker build -t lbakerjs/probable-octo-engine-nginx -f ./client/Dockerfile.dev ./nginx
-  - docker build -t lbakerjs/probable-octo-engine-server -f ./client/Dockerfile.dev ./server
-  - docker build -t lbakerjs/probable-octo-engine-worker -f ./client/Dockerfile.dev ./worker
+  - docker build -t lbakerjs/probable-octo-engine-nginx -f ./nginx/Dockerfile.dev ./nginx
+  - docker build -t lbakerjs/probable-octo-engine-server -f ./server/Dockerfile.dev ./server
+  - docker build -t lbakerjs/probable-octo-engine-worker -f ./worker/Dockerfile.dev ./worker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
   - docker push lbakerjs/probable-octo-engine-client
   - docker push lbakerjs/probable-octo-engine-nginx
