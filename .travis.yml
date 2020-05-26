@@ -6,7 +6,7 @@ before_install:
   - docker build -t lbakerjs/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true USERNAME/react-test npm test
+  - docker run -e CI=true lbakerjs/react-test npm test
 
 after_success:
   - docker build -t lbakerjs/probable-octo-engine-client -f ./client/Dockerfile.dev ./client
