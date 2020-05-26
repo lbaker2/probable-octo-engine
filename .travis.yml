@@ -1,0 +1,20 @@
+language: generic
+sudo: required
+services:
+   - docker
+before_install:
+  - docker build -t lbakerjs/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true USERNAME/react-test npm test
+
+after_success:
+  - docker build -t lbakerjs/probable-octo-engine-client -f ./client/Dockerfile.dev ./client
+  - docker build -t lbakerjs/probable-octo-engine-nginx -f ./client/Dockerfile.dev ./nginx
+  - docker build -t lbakerjs/probable-octo-engine-server -f ./client/Dockerfile.dev ./server
+  - docker build -t lbakerjs/probable-octo-engine-worker -f ./client/Dockerfile.dev ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+  - docker push lbakerjs/probable-octo-engine-client
+  - docker push lbakerjs/probable-octo-engine-nginx
+  - docker push lbakerjs/probable-octo-engine-server
+  - docker push lbakerjs/probable-octo-engine-worker
