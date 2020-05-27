@@ -12,10 +12,10 @@ script:
   - docker run -e CI=true lbakerjs/react-test npm test
 
 after_success:
-  - docker build -t lbakerjs/probable-octo-engine-client -f ./client/Dockerfile.dev ./client
-  - docker build -t lbakerjs/probable-octo-engine-nginx -f ./nginx/Dockerfile.dev ./nginx
-  - docker build -t lbakerjs/probable-octo-engine-server -f ./server/Dockerfile.dev ./server
-  - docker build -t lbakerjs/probable-octo-engine-worker -f ./worker/Dockerfile.dev ./worker
+  - docker build -t lbakerjs/probable-octo-engine-client -f ./client/Dockerfile ./client
+  - docker build -t lbakerjs/probable-octo-engine-nginx -f ./nginx/Dockerfile ./nginx
+  - docker build -t lbakerjs/probable-octo-engine-server -f ./server/Dockerfile ./server
+  - docker build -t lbakerjs/probable-octo-engine-worker -f ./worker/Dockerfile ./worker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
   - docker push lbakerjs/probable-octo-engine-client
   - docker push lbakerjs/probable-octo-engine-nginx
