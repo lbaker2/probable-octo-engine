@@ -18,3 +18,16 @@ after_success:
   - docker push lbakerjs/probable-octo-engine-nginx
   - docker push lbakerjs/probable-octo-engine-server
   - docker push lbakerjs/probable-octo-engine-worker
+
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+    region: "us-east-2"
+    app: "probable-octo-engine"
+    env: "ProbableOctoEngine-env"
+    bucket_name: "elasticbeanstalk-us-east-2-693724386402"
+    bucket_path: "probable-octo-engine"
+    on:
+      branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
